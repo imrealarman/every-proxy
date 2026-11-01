@@ -8,6 +8,7 @@ Browsers can only speak HTTP/SOCKS to a proxy, so the extension drives [Xray-cor
 
 - Add servers by pasting `vless://`, `vmess://`, `trojan://` and `ss://` links, several at once, a base64 subscription, or a subscription URL.
 - One-click Connect and Disconnect. Disconnect restores direct browsing.
+- **Restart core** stops Xray-core and starts it again with the active server.
 - **Ping** measures TCP connect time to every server, shown on each row. While connected in All-tabs mode, the status line also shows the real round trip through the proxy.
 - **Use proxy for**: *All tabs* proxies everything. *Selected sites* proxies only the domains you add (use **+ Add this tab's site**) and leaves everything else direct.
 - Light and dark themes. The default follows the system, and the moon button toggles it.

@@ -91,7 +91,11 @@ chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
       if (!r.ok) throw new Error(r.error);
       return reply({ ok: true, results: r.results });
     }
-    if (msg.type === 'connect') await connect(msg.id);
+    // connect() drops the old host (which kills its core) and starts a fresh one, so it doubles as a restart.
+    if (msg.type === 'connect' || msg.type === 'restart') {
+      if (!msg.id) throw new Error('Select a server first');
+      await connect(msg.id);
+    }
     else if (msg.type === 'disconnect') await teardown();
     reply({ ok: true, state: await getState() });
   })().catch((e) => reply({ ok: false, error: e.message }));

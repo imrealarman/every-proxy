@@ -71,7 +71,9 @@ function render() {
     : selectedId ? servers.find((s) => s.id === selectedId)?.name ?? '' : 'Select a server to connect';
   const t = $('toggle');
   t.textContent = state.connected ? 'Disconnect' : 'Connect';
-  t.disabled = !state.connected && (!selectedId || !ready);
+  // The setup check is advisory: connecting reports a missing core itself, so a failed check never locks the button.
+  t.disabled = !state.connected && !selectedId;
+  $('restart').disabled = !(state.id || selectedId);
   if (state.error) showError(state.error);
 
   document.querySelectorAll('.seg button').forEach((b) => b.classList.toggle('on', b.dataset.mode === mode));
@@ -154,7 +156,12 @@ async function send(msg) {
 // Detects a missing native helper or Xray core and keeps polling until setup is done.
 let checkTimer = null;
 async function checkSetup() {
-  const r = await chrome.runtime.sendMessage({ type: 'check' });
+  let r;
+  try {
+    r = await chrome.runtime.sendMessage({ type: 'check' });
+  } catch {
+    r = { host: false, core: false };
+  }
   ready = r.host && r.core;
   $('setup').hidden = ready;
   if (!r.host) {
@@ -188,7 +195,23 @@ $('toggle').onclick = async () => {
   render();
 };
 
-$('add-open').onclick = () => { $('add').hidden = false; $('links').focus(); };
+// Stops the core and starts it again with the active (or selected) server.
+$('restart').onclick = async () => {
+  const btn = $('restart');
+  btn.disabled = true;
+  btn.textContent = 'Restarting…';
+  showError('');
+  try {
+    await send({ type: 'restart', id: state.id || selectedId });
+    measureReal();
+  } catch (e) {
+    showError(e.message);
+  }
+  btn.textContent = 'Restart core';
+  render();
+};
+
+$('add-open').onclick =() => { $('add').hidden = false; $('links').focus(); };
 $('add-cancel').onclick = () => { $('add').hidden = true; };
 
 async function importText(text) {
