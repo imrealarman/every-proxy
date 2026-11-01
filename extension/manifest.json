@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Every Proxy",
+  "version": "1.0.0",
+  "description": "Connect your browser through VLESS, VMess, Trojan and Shadowsocks servers.",
+  "minimum_chrome_version": "110",
+  "permissions": [
+    "proxy",
+    "storage",
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Every Proxy",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu+Lxgm8Unp+RjeSjcEP7q3IF0EbIusn94nyMiFaPLKD81fkgv+0gvk6kSV0JSAN6iMt6Pbscjcgnd9a7+bsV8j5kydRMevIR1ufh9JMU5niViQAbLSi2grdOP8KaFEFwqRf/8jEjBOMxFCi4dcRAP2uqXsEiqoDMyzN7W4sySV8+z1XY8LNbM0VTh4eur+xRnb3l1+dSEOuyi/2HamXtN/tXXP2GdJC/9ATiD2dKRXA7acX9YDhd6roh54EMEl4pBJmsPvBr/JqWsefE01gQXh5sg3jQNMPh9i0zFrmMxzYq0BQLwQMT8hdecUiaw5a+rZvBdYr5W1cn5H9ckvBnZQIDAQAB"
+}

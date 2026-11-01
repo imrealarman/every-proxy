@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Every Proxy</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2 3 6v6c0 5 3.8 9.3 9 10 5.2-.7 9-5 9-10V6l-9-4Zm0 5 4 2v3c0 2.6-1.8 4.9-4 5.5-2.2-.6-4-2.9-4-5.5V9l4-2Z"/></svg>
+      <h1>Every Proxy</h1>
+    </div>
+    <button id="theme" class="icon-btn" title="Toggle light / dark" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.5-.1-1-.2-1.4A6 6 0 0 1 12.4 3.2 9 9 0 0 0 12 3Z"/></svg>
+    </button>
+  </header>
+
+  <section class="status" id="status">
+    <div class="dot"></div>
+    <div class="status-text">
+      <strong id="status-title">Disconnected</strong>
+      <span id="status-sub">Select a server to connect</span>
+    </div>
+    <button id="toggle" class="btn accent" disabled>Connect</button>
+  </section>
+
+  <div id="error" class="error" hidden></div>
+
+  <section id="setup" class="setup" hidden>
+    <strong id="setup-title"></strong>
+    <p id="setup-text"></p>
+    <div class="cmd">
+      <code>powershell -ExecutionPolicy Bypass -File .\native\install.ps1</code>
+      <button id="copy" class="btn quiet">Copy</button>
+    </div>
+    <p class="hint">Run it from the Every Proxy folder, or double-click <code>native\install.bat</code>. This page re-checks automatically.</p>
+  </section>
+
+  <section class="scope">
+    <h2>Use proxy for</h2>
+    <div class="seg" role="group" aria-label="Proxy scope">
+      <button data-mode="all">All tabs</button>
+      <button data-mode="sites">Selected sites</button>
+    </div>
+    <div id="sites-box" hidden>
+      <button id="site-add" class="btn quiet">+ Add this tab's site</button>
+      <ul id="sites" class="chips"></ul>
+      <p id="sites-empty" class="empty">No sites yet. Open a site and add it; other tabs stay direct.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Servers</h2>
+      <span class="actions">
+        <button id="ping" class="btn quiet">Ping</button>
+        <button id="add-open" class="btn quiet">+ Add</button>
+      </span>
+    </div>
+    <ul id="list" class="list"></ul>
+    <p id="empty" class="empty" hidden>No servers yet. Add a <code>vless://</code>, <code>vmess://</code>, <code>trojan://</code> or <code>ss://</code> link.</p>
+  </section>
+
+  <section id="add" class="add" hidden>
+    <textarea id="links" rows="4" placeholder="Paste one or more links, or a base64 subscription"></textarea>
+    <div class="row">
+      <input id="sub-url" type="url" placeholder="…or subscription URL">
+      <button id="sub-fetch" class="btn quiet">Fetch</button>
+    </div>
+    <div class="row end">
+      <button id="add-cancel" class="btn quiet">Cancel</button>
+      <button id="add-save" class="btn accent">Import</button>
+    </div>
+  </section>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

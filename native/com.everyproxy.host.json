@@ -1,0 +1,9 @@
+{
+    "path":  "D:\\Desktop\\every-proxy\\native\\host.bat",
+    "description":  "Every Proxy core launcher",
+    "name":  "com.everyproxy.host",
+    "allowed_origins":  [
+                            "chrome-extension://iefkimppbapoklpjemefdiceofaogmpo/"
+                        ],
+    "type":  "stdio"
+}
